@@ -35,3 +35,40 @@ class Solution {
         return result;
     }
 }
+
+
+
+//DFS
+//TC : O(mn)
+//SC : O(mn)
+
+class Solution {
+    public int numIslands(char[][] grid) {
+        int m = grid.length;
+        int n = grid[0].length;
+        int[][] directionsArray = new int[][] {{-1,0}, {0,1}, {0,-1}, {1,0}};
+        int result = 0;
+        for(int i=0 ; i<m ; i++) {
+            for(int j=0 ; j<n ; j++) {
+                if(grid[i][j] == '1') {
+                    result++;
+                    dfs(grid, i, j, directionsArray);
+                }
+            }
+        }
+        return result;
+    }
+    private void dfs(char[][] grid, int i, int j, int[][] directions) {
+        //base
+        if( i < 0 || j < 0 || i == grid.length || j == grid[0].length || grid[i][j] == '0') {
+            return;
+        }
+        grid[i][j] = '0';
+        //logic
+        for(int[] dir : directions) {
+            int cr = dir[0] + i;
+            int cc = dir[1] + j;
+            dfs(grid, cr, cc, directions);
+        }
+    }
+}
